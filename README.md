@@ -9,7 +9,7 @@
 
 🚀 **TLDR** : Le programme lit un fichier `.fdf` contenant des altitudes et génère une vue 3D isométrique en reliant chaque point par des segments de droite, en utilisant la bibliothèque graphique **MiniLibX**.
 
-
+![FDF RENDER](t1_fdf.png)
 
 ---
 
