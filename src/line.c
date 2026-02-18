@@ -6,7 +6,7 @@
 /*   By: mville <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 13:04:12 by mville            #+#    #+#             */
-/*   Updated: 2026/02/05 12:24:51 by mville           ###   ########.fr       */
+/*   Updated: 2026/02/18 12:09:23 by mville           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,16 @@ static void	next_point_x(t_point *p2, t_fdf *fdf, int x, int y)
 {
 		p2->x = (x + 1) * fdf->zoom;
 		p2->y = y * fdf->zoom;
-		p2->z = fdf->map.tab[y][x + 1].z * 
-		(fdf->zoom / 2) * fdf->z_management;
+		p2->z = fdf->map.tab[y * fdf->map.width + x + 1].z * (fdf->zoom / 2)
+		* fdf->z_management;
 }
 
 static void	next_point_y(t_point *p2, t_fdf *fdf, int x, int y)
 {
 		p2->x = x * fdf->zoom;
 		p2->y = (y + 1) * fdf->zoom;
-		p2->z = fdf->map.tab[y + 1][x].z *
-		(fdf->zoom / 2) * fdf->z_management;
+		p2->z = fdf->map.tab[(y + 1) * fdf->map.width + x].z * (fdf->zoom / 2)
+		* fdf->z_management;
 }
 
 static void	line_init(t_fdf *fdf, int x, int y, int is_right)
@@ -46,9 +46,10 @@ static void	line_init(t_fdf *fdf, int x, int y, int is_right)
 
 	p1.x = x * fdf->zoom;
 	p1.y = y * fdf->zoom;
-	p1.z = fdf->map.tab[y][x].z * (fdf->zoom / 2) * fdf->z_management;
-	p1.color = fdf->map.tab[y][x].color;
-	p2.color = fdf->map.tab[y][x].color;
+	p1.z = fdf->map.tab[y * fdf->map.width + x].z * (fdf->zoom / 2)
+		* fdf->z_management;
+	p1.color = fdf->map.tab[y * fdf->map.width + x].color;
+	p2.color = fdf->map.tab[y * fdf->map.width + x].color;
 	if (is_right)
 		next_point_x(&p2, fdf, x, y);
 	else

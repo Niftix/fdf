@@ -26,15 +26,17 @@ int	main(int ac, char **av)
 		return (3);
 	if (graphic_init(&fdf))
 	{
-		ft_free(fdf.map.tab, fdf.map.height);
+		ft_free(fdf.map.tab);
 		return (4);
 	}
+	fdf.needs_redraw = 0;
 	draw_image(&fdf);
 	mlx_put_image_to_window(fdf.mlx.mlx, fdf.mlx.mlx_win,
 		fdf.mlx.img.img, 0, 0);
-	mlx_key_hook(fdf.mlx.mlx_win, key_management, &fdf);
+	mlx_hook(fdf.mlx.mlx_win, 2, 1L << 0, key_management, &fdf);
 	mlx_hook(fdf.mlx.mlx_win, 17, 0, exit_hook, &fdf);
 	mlx_expose_hook(fdf.mlx.mlx_win, expose_hook, &fdf);
+	mlx_loop_hook(fdf.mlx.mlx, render_loop, &fdf);
 	mlx_loop(fdf.mlx.mlx);
 	return (0);
 }

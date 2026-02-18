@@ -22,11 +22,11 @@ static int	map_fill(int y, int x, t_fdf *fdf)
 		if (!res)
 		{
 			clean_fd_line(fdf);
-			return (1);
+			return (malloc_fail());
 		}
 		while (res[x] && x < fdf->map.width && y < fdf->map.height)
 		{
-			parse_point(&fdf->map.tab[y][x], res[x]);
+			parse_point(&fdf->map.tab[y * fdf->map.width + x], res[x]);
 			free(res[x++]);
 		}
 		while (res[x])
@@ -43,22 +43,9 @@ static int	map_fill(int y, int x, t_fdf *fdf)
 
 static int	map_create(t_fdf *fdf)
 {
-	int	i;
-
-	i = 0;
-	fdf->map.tab = malloc(sizeof(t_point *) * (fdf->map.height));
+	fdf->map.tab = malloc(sizeof(t_point) * fdf->map.width * fdf->map.height);
 	if (!fdf->map.tab)
-		return (1);
-	while (i < fdf->map.height)
-	{
-		fdf->map.tab[i] = malloc(sizeof(t_point) * fdf->map.width);
-		if (!fdf->map.tab[i])
-		{
-			ft_free(fdf->map.tab, i);
-			return (1);
-		}
-		i++;
-	}
+		return (malloc_fail());
 	return (0);
 }
 
@@ -120,12 +107,12 @@ int	parsing_core(char *file, t_fdf *fdf)
 	fdf->file.line = file_init(file, fdf);
 	if (!fdf->file.line)
 	{
-		ft_free(fdf->map.tab, fdf->map.height);
+		ft_free(fdf->map.tab);
 		return (1);
 	}
 	if (map_fill(0, 0, fdf))
 	{
-		ft_free(fdf->map.tab, fdf->map.height);
+		ft_free(fdf->map.tab);
 		return (1);
 	}
 	return (0);

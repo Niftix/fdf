@@ -31,15 +31,6 @@ int	count_word(char *str, char sep)
 
 void	*ft_final_free(t_fdf *fdf)
 {
-	int	y;
-
-	y = 0;
-	while (y < fdf->map.height)
-	{
-		if (fdf->map.tab[y])
-			free(fdf->map.tab[y]);
-		y++;
-	}
 	free(fdf->map.tab);
 	mlx_destroy_image(fdf->mlx.mlx, fdf->mlx.img.img);
 	mlx_destroy_window(fdf->mlx.mlx, fdf->mlx.mlx_win);
@@ -48,17 +39,9 @@ void	*ft_final_free(t_fdf *fdf)
 	return (NULL);
 }
 
-void	*ft_free(t_point **matrice, int size)
+void	*ft_free(t_point *tab)
 {
-	int	i;
-
-	i = 0;
-	while (i < size)
-	{
-		free(matrice[i]);
-		i++;
-	}
-	free(matrice);
+	free(tab);
 	return (NULL);
 }
 

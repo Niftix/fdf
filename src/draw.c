@@ -65,11 +65,26 @@ static void	bresenham_init(t_bresenham *infos, t_point start, t_point end)
 		infos->pas_y = -1;
 }
 
+static int	check_offscreen(t_fdf *fdf, t_point start, t_point end)
+{
+	if (start.x < 0 && end.x < 0)
+		return (1);
+	if (start.y < 0 && end.y < 0)
+		return (1);
+	if (start.x >= fdf->win.win_width && end.x >= fdf->win.win_width)
+		return (1);
+	if (start.y >= fdf->win.win_height && end.y >= fdf->win.win_height)
+		return (1);
+	return (0);
+}
+
 void	bresenham_start(t_fdf *fdf, t_point start, t_point end)
 {
 	t_bresenham	infos;
 	int			color;
 
+	if (check_offscreen(fdf, start, end))
+		return ;
 	if (start.color == -1)
 		color = fdf->color;
 	else

@@ -19,3 +19,16 @@ void	redraw(t_fdf *fdf)
 	mlx_put_image_to_window(fdf->mlx.mlx, fdf->mlx.mlx_win,
 		fdf->mlx.img.img, 0, 0);
 }
+
+int	render_loop(void *param)
+{
+	t_fdf	*fdf;
+
+	fdf = (t_fdf *)param;
+	if (fdf->needs_redraw)
+	{
+		redraw(fdf);
+		fdf->needs_redraw = 0;
+	}
+	return (0);
+}

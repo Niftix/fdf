@@ -12,6 +12,12 @@
 
 #include "fdf.h"
 
+int	malloc_fail(void)
+{
+	ft_putstr_fd("Error: malloc failed\n", 2);
+	return (1);
+}
+
 void	map_error(int index_err, int erreur)
 {
 	ft_putstr_fd("Error : line ", 2);

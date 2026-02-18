@@ -54,6 +54,10 @@ void	parse_point(t_point *point, char *str)
 	char	*color;
 
 	point->z = ft_atoi(str);
+	if (point->z > 10000)
+		point->z = 10000;
+	else if (point->z < -10000)
+		point->z = -10000;
 	color = ft_strchr(str, ',');
 	if (color)
 		point->color = atoi_hexa(color + 1);

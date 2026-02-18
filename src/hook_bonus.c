@@ -42,7 +42,7 @@ static void	movement_hook(int keycode, t_fdf *fdf)
 		fdf->shift_y -= 20;
 	else if (keycode == 65364)
 		fdf->shift_y += 20;
-	else if (keycode == 99)
+	else if (keycode == 99 && fdf->z_management < 10.0)
 		fdf->z_management += 0.1;
 	else if (keycode == 118 && fdf->z_management > 0.1)
 		fdf->z_management -= 0.1;
@@ -73,7 +73,7 @@ int	key_management(int keycode, void *param)
 		fdf_init(fdf);
 	else
 		return (0);
-	redraw(fdf);
+	fdf->needs_redraw = 1;
 	return (0);
 }
 
