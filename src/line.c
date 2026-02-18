@@ -27,14 +27,16 @@ static void	next_point_x(t_point *p2, t_fdf *fdf, int x, int y)
 {
 		p2->x = (x + 1) * fdf->zoom;
 		p2->y = y * fdf->zoom;
-		p2->z = fdf->map.tab[y][x + 1].z * (fdf->zoom / 2) * fdf->z_management;
+		p2->z = fdf->map.tab[y][x + 1].z * 
+		(fdf->zoom / 2) * fdf->z_management;
 }
 
 static void	next_point_y(t_point *p2, t_fdf *fdf, int x, int y)
 {
 		p2->x = x * fdf->zoom;
 		p2->y = (y + 1) * fdf->zoom;
-		p2->z = fdf->map.tab[y + 1][x].z * (fdf->zoom / 2) * fdf->z_management;
+		p2->z = fdf->map.tab[y + 1][x].z *
+		(fdf->zoom / 2) * fdf->z_management;
 }
 
 static void	line_init(t_fdf *fdf, int x, int y, int is_right)
